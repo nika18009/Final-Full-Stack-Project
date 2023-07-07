@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
+import "./Button.scss";
 
-const Button = ({ className, children, variant, color, ...props }) => {
+const Button = ({ children, color,...props }) => {
   return (
-    <button
-      className={`styled-button ${variant} ${color} ${className}`}
-      {...props}
-    >
+    <button className={`styled-button ${color} `} {...props}>
       {children}
     </button>
   );
@@ -14,14 +12,14 @@ const Button = ({ className, children, variant, color, ...props }) => {
 Button.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(["contained", "outlined"]),
-  color: PropTypes.oneOf(["", "error", "success"]),
+  // variant: PropTypes.oneOf(["contained", "outlined"]),
+  // color: PropTypes.oneOf(["", "error", "success"]),
 };
 
-Button.defaultProps = {
-  className: "",
-  variant: "contained",
-  color: "",
-};
+// Button.defaultProps = {
+//   className: "",
+//   variant: "contained",
+//   color: "",
+// };
 
 export default Button;

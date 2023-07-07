@@ -1,0 +1,17 @@
+@import "../../styles/shadows.scss";
+@import "../../styles/colors.scss";
+
+.questionCard {
+  width: 40rem;
+  margin: 1rem auto;
+  background-color: white;
+  padding: 1em;
+  box-shadow: $cardShadow;
+  border-radius: 5px;
+}
+
+.question-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

@@ -1,5 +1,7 @@
-const Input = ({ ...rest }) => {
-  return <input {...rest} />;
+import "./FormItem.scss";
+
+const FormInput = ({ ...rest }) => {
+  return <input {...rest}/>;
 };
 
-export default Input;
+export default FormInput;

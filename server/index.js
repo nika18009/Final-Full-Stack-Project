@@ -56,6 +56,7 @@ app.post('/users', async (req, res) => {
 app.post('/questions', async (req, res) => {
   try {
     const question = req.body;
+    question.user_id = new ObjectId(question.user_id);
     const con = await client.connect();
     const data = await con
       .db(dbName)
@@ -103,7 +104,7 @@ app.get('/questions', async (req, res) => {
           $lookup: {
             from: 'users',
             localField: 'user_id',
-            foreignField: '_id',
+            foreignField: `_id`,
             as: 'user_info',
           },
         },
@@ -128,6 +129,23 @@ app.get('/questions/:id', async (req, res) => {
       .db(dbName)
       .collection('questions')
       .findOne(new ObjectId(id)); // Retrieve the question using its ID
+    await con.close();
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.put('/questions/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedQuestion = req.body;
+    updatedQuestion.user_id = new ObjectId(updatedQuestion.user_id);
+    const con = await client.connect();
+    const data = await con
+      .db(dbName)
+      .collection('questions')
+      .updateOne({ _id: new ObjectId(id) }, { $set: updatedQuestion });
     await con.close();
     res.send(data);
   } catch (error) {

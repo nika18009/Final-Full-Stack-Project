@@ -1,0 +1,44 @@
+@import "../../styles/colors.scss";
+@import "../../styles/shadows.scss";
+
+.container {
+  width: 30rem;
+  margin: 1rem auto;
+}
+
+.form {
+  width: 30rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: $cardShadow;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &-item {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    margin-top: 1em;
+    font-size: 1.1rem;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 1em;
+    a {
+      text-align: center;
+      line-height: 1.5em;
+    }
+    a:hover {
+      color: $primaryDark;
+    }
+  }
+
+  .error {
+    color: red;
+  }
+}

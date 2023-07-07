@@ -1,0 +1,21 @@
+@import "../../styles/colors.scss";
+
+.styled-button {
+  font-size: 0.8em;
+  padding: 5px 12px;
+  border: 1px solid $primaryMain;
+  border-radius: 5px;
+  background-color: $primaryMain;
+  color: #ffffff;
+  a {
+    color: #ffffff;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: $primaryDark;
+  }
+  &.error:hover {
+    background-color: $errorMain;
+    border-color: $errorMain;
+  }
+}

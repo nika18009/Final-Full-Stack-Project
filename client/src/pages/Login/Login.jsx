@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContex";
 import { REGISTER_ROUTE } from "../../routes/const";
-import Input from "../../components/FormItem/FormItem";
+import FormInput from "../../components/FormItem/FormItem";
 import Button from "../../components/Button/Button";
+import "./Login.scss";
+
 
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
@@ -20,8 +22,7 @@ const Login = () => {
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
-        
-        <Input
+        <FormInput
           label="Email"
           placeholder="Enter email"
           type="email"
@@ -29,7 +30,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <Input
+        <FormInput
           label="Password"
           placeholder="Enter password"
           type="password"

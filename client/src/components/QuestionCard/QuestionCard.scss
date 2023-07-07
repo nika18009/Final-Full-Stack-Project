@@ -1,0 +1,25 @@
+@import "../../styles/shadows.scss";
+@import "../../styles/colors.scss";
+
+.question-card {
+  background-color: white;
+  padding: 0.2em 1em;
+  margin: 1em 0;
+  box-shadow: $cardShadow;
+  border-radius: 5px;
+  overflow-wrap: break-word;
+  inline-size: 60rem;
+  a:link {
+    text-decoration: none;
+  }
+  h3:hover {
+    color: $primaryDark;
+  }
+  p {
+    padding: 10px 0;
+  }
+}
+
+.questionInformation {
+  border-top: 1px solid rgba(128, 128, 128, 0.508);
+}

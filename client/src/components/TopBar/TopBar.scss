@@ -1,0 +1,74 @@
+@import "../../styles/colors.scss";
+@import "../../styles/shadows.scss";
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: white;
+  color: black;
+  border-bottom: 2px solid $cardShadow;
+
+  a:link {
+    text-decoration: none;
+
+    &.user-container {
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+  .userInformation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 15rem;
+
+    button {
+      font-size: 0.8em;
+      padding: 5px 12px;
+      border: 1px solid $primaryMain;
+      border-radius: 5px;
+      background-color: $primaryMain;
+      // color: #ffffff;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $primaryDark;
+      }
+    }
+  }
+
+  img {
+    width: 100px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .loginRegisterButtons {
+    a {
+      color: white;
+    }
+    button {
+      font-size: 0.8em;
+      padding: 5px 12px;
+      border: 1px solid $primaryMain;
+      border-radius: 5px;
+      background-color: $primaryMain;
+      color: #ffffff;
+      margin-right: 1.5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $primaryDark;
+      }
+    }
+  }
+  //   &-items {
+  //     display: flex;
+  //     align-items: center;
+  //     gap: 3rem;
+  //   }
+}

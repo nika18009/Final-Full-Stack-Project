@@ -1,11 +1,11 @@
-// import Topbar from "../components/Topbar/Topbar";
+import TopbarAuthenticated from "../components/TopBar/TopBarAuthenticated";
 
 import React from "react";
 
 const AuthenticatedLayout = ({ children }) => {
   return (
     <>
-      {/* <Topbar /> */}
+      <TopbarAuthenticated />
       <div className="authenticated-container">{children}</div>
     </>
   );

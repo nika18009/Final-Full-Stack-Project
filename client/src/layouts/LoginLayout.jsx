@@ -1,10 +1,11 @@
 import React from "react";
+import Topbar from "../components/TopBar/TopBar";
 
 const LoginLayout = ({ children }) => {
   return (
-    <div className="login-container">
-      <h1>Hello to my app!</h1>
-      {children}
+    <div>
+      <Topbar />
+      <div className="login-container">{children}</div>
     </div>
   );
 };
