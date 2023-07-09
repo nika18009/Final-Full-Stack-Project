@@ -6,6 +6,8 @@ import Register from "../pages/Register/Register";
 import NewQuestion from "../pages/NewQuestion/NewQuestion";
 import Question from "../pages/Question/Question";
 import EditQuestion from "../pages/EditQuestion/EditQuestion";
+import NewAnswer from "../pages/Answer/Answer";
+import EditAnswer from "../pages/EditQuestion/EditAnswer";
 
 export const REGISTER_ROUTE = "/register";
 export const LOGIN_ROUTE = "/login";
@@ -13,6 +15,8 @@ export const MAIN_ROUTE = "/";
 export const NEW_QUESTION_ROUTE = `/newquestion`;
 export const QUESTION_ROUTE = `/question/:id`;
 export const EDIT_QUESTION_ROUTE = `${QUESTION_ROUTE}/edit`;
+export const QUESTION_ANSWER_ROUTE = `${QUESTION_ROUTE}/answer`;
+export const EDIT_ANSWER_ROUTE = `${QUESTION_ANSWER_ROUTE}/edit`;
 // export const CONTACTS_ROUTE = "/contacts";
 // export const PROFILE_ROUTE = "/profile";
 // export const PROJECTS_ROUTE = "/projects";
@@ -67,6 +71,14 @@ export const authenticatedRoutes = {
     {
       path: EDIT_QUESTION_ROUTE,
       Component: EditQuestion,
+    },
+    {
+      path: QUESTION_ANSWER_ROUTE,
+      Component: NewAnswer,
+    },
+    {
+      path: EDIT_ANSWER_ROUTE,
+      Component: NewAnswer,
     },
   ],
 };

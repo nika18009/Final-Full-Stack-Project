@@ -1,17 +1,30 @@
 @import "../../styles/shadows.scss";
 @import "../../styles/colors.scss";
 
-.questionCard {
+.questionCard,
+.answerCard {
   width: 40rem;
   margin: 1rem auto;
   background-color: white;
   padding: 1em;
   box-shadow: $cardShadow;
   border-radius: 5px;
+
+  .answerCardTitle {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.177);
+    // display: flex;
+    justify-content: space-between;
+    h2{
+      font-weight: normal;}
+  }
 }
 
 .question-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
+}
+
+.singleAnsweCard{
+  
 }

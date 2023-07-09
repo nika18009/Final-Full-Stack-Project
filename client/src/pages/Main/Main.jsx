@@ -52,6 +52,7 @@ const Main = () => {
             <QuestionCard
               title={question.title}
               description={question.description}
+              answerCount={question.answers.length}
             />
           </Link>
         ))}

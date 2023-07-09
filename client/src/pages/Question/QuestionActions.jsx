@@ -26,13 +26,15 @@ const QuestionActions = ({ id }) => {
   return (
     <div className="question-actions">
       <Button onClick={handleEdit}>Edit Question</Button>
-      <Button onClick={handleDelete}  color="error" >Delete Question</Button>
+      <Button onClick={handleDelete} color="error">
+        Delete Question
+      </Button>
     </div>
   );
 };
 
 QuestionActions.propTypes = {
-  _id: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default QuestionActions;

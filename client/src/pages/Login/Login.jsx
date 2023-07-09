@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContex";
-import { REGISTER_ROUTE } from "../../routes/const";
+import { MAIN_ROUTE, REGISTER_ROUTE } from "../../routes/const";
 import FormInput from "../../components/FormItem/FormItem";
 import Button from "../../components/Button/Button";
 import "./Login.scss";
-
 
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
@@ -40,7 +39,9 @@ const Login = () => {
         />
         {error && <p className="error">{error}</p>}
         <div className="button-container">
-          <Button>Login</Button>
+          <Button>
+            <Link to={MAIN_ROUTE}>Log in</Link>
+          </Button>
           <Link to={REGISTER_ROUTE}>Register</Link>
         </div>
       </form>
