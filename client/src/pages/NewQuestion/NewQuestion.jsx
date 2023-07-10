@@ -22,6 +22,7 @@ const NewQuestion = ({ question }) => {
       user_id: user._id,
       title,
       description,
+      createdAt: new Date(),
     };
     console.log("Submitting Question:", submittingQuestion);
 

@@ -5,6 +5,7 @@ import { QUESTION_ROUTE, NEW_QUESTION_ROUTE } from "../../routes/const";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContex";
 import Button from "../../components/Button/Button";
+import QuestionSorting from "../../components/QuestionSorting/QuestionSorting";
 import "./Main.scss";
 
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
@@ -12,10 +13,12 @@ import QuestionCard from "../../components/QuestionCard/QuestionCard";
 const Main = () => {
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortOption, setSortOption] = useState("");
+  const [filterOption, setFilterOption] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
-    getQuestions()
+    getQuestions(sortOption, filterOption)
       .then((response) => {
         setQuestions(response);
       })
@@ -25,7 +28,15 @@ const Main = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [sortOption, filterOption]);
+
+  const handleSortChange = (option) => {
+    setSortOption(option);
+  };
+
+  const handleFilterChange = (option) => {
+    setFilterOption(option);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -41,18 +52,27 @@ const Main = () => {
         <Button>
           <Link to={NEW_QUESTION_ROUTE}>New Question</Link>
         </Button>
+        <QuestionSorting
+          onSortChange={handleSortChange}
+          onFilterChange={handleFilterChange}
+        />
       </div>
 
       <div className="questionsArea">
         {questions.map((question) => (
           <Link
             key={question._id}
-            to={generatePath(QUESTION_ROUTE, { id: question._id })} // generatePath tik tada kai naudojam dinaminius routus
+            to={generatePath(QUESTION_ROUTE, { id: question._id })}
           >
             <QuestionCard
               title={question.title}
               description={question.description}
               answerCount={question.answers.length}
+              createdDate={
+                question.createdAt &&
+                new Date(question.createdAt).toLocaleDateString()
+              }
+              updatedAt={question.updatedAt}
             />
           </Link>
         ))}

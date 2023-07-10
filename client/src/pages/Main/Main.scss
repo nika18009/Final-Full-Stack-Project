@@ -1,5 +1,9 @@
 .questionspage {
-  
   width: 60rem;
   margin: 1rem auto;
+}
+
+.newQuestionArea {
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,7 +1,21 @@
 import axios from "axios";
 
-export const getQuestions = async () => {
-  const response = await axios.get("http://localhost:3000/questions");
+export const getQuestions = async (sortOption = "", filterOption = "") => {
+  let url = "http://localhost:3000/questions";
+
+  if (sortOption) {
+    url += `?sort=${sortOption}`;
+  }
+
+  if (filterOption) {
+    if (sortOption) {
+      url += `&filter=${filterOption}`;
+    } else {
+      url += `?filter=${filterOption}`;
+    }
+  }
+
+  const response = await axios.get(url);
   return response.data;
 };
 
@@ -19,9 +33,10 @@ export const createQuestion = async (question) => {
 };
 
 export const updateQuestion = async (question) => {
+  const { _id, ...updatedQuestion } = question;
   const response = await axios.put(
-    `http://localhost:3000/questions/${question.id}`,
-    question
+    `http://localhost:3000/questions/${_id}`,
+    updatedQuestion
   );
   return response.data;
 };

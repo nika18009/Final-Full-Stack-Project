@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getQuestionAnswer } from "../../api/answers";
+import { getQuestion } from "../../api/questions";
 import NewAnswer from "../Answer/Answer";
 import Loader from "../../components/Loader/Loader";
 
@@ -11,11 +11,11 @@ const EditAnswer = ({ answer }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(answer._id);
-    getQuestionAnswer(answer._id)
+    console.log(answer.question_id);
+    getQuestion(answer.question_id)
       .then((response) => {
-        setQuestionId(response.question_id);
-        console.log(response.question_id);
+        setQuestionId(response);
+        console.log(response);
       })
       .catch((error) => {
         console.error(error);
@@ -23,7 +23,7 @@ const EditAnswer = ({ answer }) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [answer._id]);
+  }, [answer.question_id]);
 
   if (isLoading) {
     return <Loader />;

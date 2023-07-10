@@ -20,14 +20,17 @@ export const getQuestionAnswer = async (id) => {
 
 export const createAnswer = async (answer) => {
   const response = await axios.post("http://localhost:3000/answers", answer);
+
   return response.data;
 };
 
 export const updateAnswer = async (answer) => {
+  answer.updatedAt = new Date();
+
+  const { _id, ...updatedAnswer } = answer;
   const response = await axios.put(
-    `http://localhost:3000/question/${answer._id}/answer`,
-    answer,
-    console.log(answer)
+    `http://localhost:3000/answers/${_id}`,
+    updatedAnswer
   );
   return response.data;
 };

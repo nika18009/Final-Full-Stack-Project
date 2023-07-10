@@ -57,11 +57,12 @@ app.post('/questions', async (req, res) => {
   try {
     const question = req.body;
     question.user_id = new ObjectId(question.user_id);
+    question.createdAt = new Date(); // Add the createdAt field with the current date
     const con = await client.connect();
     const data = await con
       .db(dbName)
       .collection('questions')
-      .insertOne(question); // prideda vieną objektą
+      .insertOne(question);
     await con.close();
     res.send(data);
   } catch (error) {
@@ -85,6 +86,7 @@ app.post('/answers', async (req, res) => {
   try {
     const answer = req.body;
     answer.question_id = new ObjectId(answer.question_id);
+    answer.createdAt = new Date();
     const con = await client.connect();
     const data = await con.db(dbName).collection('answers').insertOne(answer);
     await con.close();
@@ -94,30 +96,118 @@ app.post('/answers', async (req, res) => {
   }
 });
 
+// app.get('/questions', async (req, res) => {
+//   try {
+//     const con = await client.connect();
+//     const data = await con
+//       .db(dbName)
+//       .collection('questions')
+//       .aggregate([
+//         {
+//           $lookup: {
+//             from: 'answers',
+//             let: { questionId: '$_id' },
+//             pipeline: [
+//               {
+//                 $match: {
+//                   $expr: {
+//                     $eq: ['$question_id', '$$questionId'],
+//                   },
+//                 },
+//               },
+//             ],
+//             as: 'answers',
+//           },
+//         },
+//       ])
+//       .toArray();
+//     await con.close();
+//     res.send(data);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
 app.get('/questions', async (req, res) => {
   try {
-    const con = await client.connect(); // prisijungiame prie duomenų bazės
+    const { sort, filter } = req.query;
+    const sortOrder = sort === 'asc' ? 1 : -1;
+
+    const con = await client.connect();
+    let pipeline = [
+      {
+        $lookup: {
+          from: 'answers',
+          let: { questionId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ['$question_id', '$$questionId'],
+                },
+              },
+            },
+          ],
+          as: 'answers',
+        },
+      },
+      {
+        $addFields: {
+          answerCount: { $size: '$answers' },
+        },
+      },
+    ];
+
+    if (filter === 'withAnswers') {
+      pipeline = [
+        ...pipeline,
+        {
+          $match: {
+            answerCount: { $gt: 0 },
+          },
+        },
+      ];
+    } else if (filter === 'withoutAnswers') {
+      pipeline = [
+        ...pipeline,
+        {
+          $match: {
+            answerCount: 0,
+          },
+        },
+      ];
+    }
+
+    if (!filter || filter === 'showAll') {
+      pipeline = [
+        ...pipeline,
+        {
+          $sort: {
+            answerCount: sortOrder,
+          },
+        },
+      ];
+    }
+
     const data = await con
       .db(dbName)
       .collection('questions')
-      .aggregate([
-        {
-          $lookup: {
-            from: 'answers',
-            localField: '_id',
-            foreignField: 'question_id',
-            as: 'answers',
-          },
-        },
-        {
-          $unwind: '$answers',
-        },
-      ])
-      .toArray(); // išsitraukiame duomenis iš duomenų bazęs
-    await con.close(); // uždarom prisijungimą prie duomenų bazės
+      .aggregate(pipeline)
+      .toArray();
+    await con.close();
+
+    // Apply sorting manually when filter is not "showAll"
+    if ((filter === 'withAnswers' || filter === 'withoutAnswers') && sort) {
+      data.sort((a, b) => {
+        if (sort === 'asc') {
+          return a.answerCount - b.answerCount;
+        }
+        return b.answerCount - a.answerCount;
+      });
+    }
+
     res.send(data);
   } catch (error) {
-    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
     res.status(500).send(error);
   }
 });
@@ -178,13 +268,14 @@ app.get('/question/:id/answer', async (req, res) => {
   }
 });
 
-app.put('/question/:id/answer', async (req, res) => {
+app.put('/answers/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedAnswer = { ...req.body }; // Create a shallow copy of the request body
-    delete updatedAnswer._id; // Exclude the _id field from the update operation
+    const updatedAnswer = { ...req.body };
+    updatedAnswer.updatedAt = new Date();
     updatedAnswer.question_id = new ObjectId(updatedAnswer.question_id);
     updatedAnswer.user_id = new ObjectId(updatedAnswer.user_id);
+
     const con = await client.connect();
     const data = await con
       .db(dbName)
@@ -219,6 +310,7 @@ app.put('/questions/:id', async (req, res) => {
     const { id } = req.params;
     const updatedQuestion = req.body;
     updatedQuestion.user_id = new ObjectId(updatedQuestion.user_id);
+    updatedQuestion.updatedAt = new Date(); // Add the updatedAt field with the current date
     const con = await client.connect();
     const data = await con
       .db(dbName)

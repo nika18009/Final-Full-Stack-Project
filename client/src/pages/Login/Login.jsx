@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate, generatePath } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContex";
 import { MAIN_ROUTE, REGISTER_ROUTE } from "../../routes/const";
@@ -11,11 +12,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = { email, password };
     handleLogin(user, setError);
+
+    const path = generatePath(MAIN_ROUTE);
+    navigate(path);
   };
 
   return (
@@ -39,9 +44,7 @@ const Login = () => {
         />
         {error && <p className="error">{error}</p>}
         <div className="button-container">
-          <Button>
-            <Link to={MAIN_ROUTE}>Log in</Link>
-          </Button>
+          <Button>Log in</Button>
           <Link to={REGISTER_ROUTE}>Register</Link>
         </div>
       </form>

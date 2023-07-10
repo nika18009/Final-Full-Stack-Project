@@ -25,8 +25,9 @@ const NewAnswer = ({ question, answer }) => {
     e.preventDefault();
     const submittingAnswer = {
       user_id: user._id,
-      question_id: question,
+      question_id: question._id, // Pass question._id directly
       description,
+      createdAt: new Date(),
     };
 
     const saveAnswer = isEditing ? updateAnswer : createAnswer;

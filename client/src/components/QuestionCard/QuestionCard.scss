@@ -7,8 +7,9 @@
   margin: 1em 0;
   box-shadow: $cardShadow;
   border-radius: 5px;
-  overflow-wrap: break-word;
+  // overflow-wrap: break-word;
   inline-size: 60rem;
+
   a:link {
     text-decoration: none;
   }
@@ -22,4 +23,19 @@
 
 .questionInformation {
   border-top: 1px solid rgba(128, 128, 128, 0.508);
+  display: flex;
+  justify-content: space-between;
+}
+
+.questionMainInformation {
+  display: flex;
+  justify-content: space-between;
+
+  h5 {
+    color: $primaryDark;
+  }
+  p {
+    overflow-wrap: break-word;
+    width: 55rem;
+  }
 }

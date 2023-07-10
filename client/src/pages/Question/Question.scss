@@ -9,13 +9,13 @@
   padding: 1em;
   box-shadow: $cardShadow;
   border-radius: 5px;
+  overflow-wrap: break-word;
 
   .answerCardTitle {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.177);
-    // display: flex;
     justify-content: space-between;
-    h2{
-      font-weight: normal;}
+    h2 {
+      font-weight: normal;
+    }
   }
 }
 
@@ -23,8 +23,68 @@
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
+  padding-bottom: 10px;
+  height: 40px;
+  align-items: center;
 }
 
-.singleAnsweCard{
-  
+.singleAnswerCard {
+  border: 2px solid rgba(128, 128, 128, 0.177);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 0 20px;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  margin-bottom: 1em;
+  box-shadow: $cardShadow;
+}
+
+.editAnswer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editedsection {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(128, 128, 128, 0.177);
+  padding-right: 10px;
+}
+
+.likeDislikeSection {
+  display: flex;
+
+  button {
+    margin-right: 1em;
+    background-color: white;
+    border: 2px solid rgba(128, 128, 128, 0.177);
+    height: 22px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    cursor: pointer;
+
+    svg {
+      margin-right: 5px;
+    }
+  }
+}
+
+.likeB.green {
+  background-color: rgba(0, 128, 0, 0.693);
+  color: white;
+}
+
+.dislikeB.red {
+  background-color: rgba(255, 0, 0, 0.637);
+  color: white;
+}
+
+.white {
+  background-color: white;
 }

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContex";
 import { useParams } from "react-router-dom";
 import { useNavigate, generatePath } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -6,7 +8,7 @@ import { getQuestion } from "../../api/questions";
 
 import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
-import { QUESTION_ANSWER_ROUTE } from "../../routes/const";
+// import { QUESTION_ANSWER_ROUTE } from "../../routes/const";
 import QuestionActions from "./QuestionActions";
 import NewAnswerActions from "./AnswerActions";
 import NewAnswer from "../Answer/Answer";
@@ -16,6 +18,7 @@ import EditAnswer from "../EditQuestion/EditAnswer";
 
 const Question = () => {
   const { id } = useParams();
+  const { isLoggedIn } = useContext(UserContext);
   const [question, setQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [editingAnswer, setEditingAnswer] = useState(false);
@@ -62,9 +65,11 @@ const Question = () => {
         </div>
       </div>
 
-      <div>
-        <NewAnswer question={question} answer={null} />
-      </div>
+      {isLoggedIn && (
+        <div>
+          <NewAnswer question={question} />
+        </div>
+      )}
 
       {/* <NewAnswerActions
         id={question._id}
