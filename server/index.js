@@ -19,12 +19,11 @@ const client = new MongoClient(URI);
 
 app.get('/users', async (req, res) => {
   try {
-    const con = await client.connect(); // prisijungiame prie duomenų bazės
-    const data = await con.db(dbName).collection('users').find().toArray(); // išsitraukiame duomenis iš duomenų bazęs
-    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    const con = await client.connect();
+    const data = await con.db(dbName).collection('users').find().toArray();
+    await con.close();
     res.send(data);
   } catch (error) {
-    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
     res.status(500).send(error);
   }
 });
@@ -33,7 +32,7 @@ app.post('/users', async (req, res) => {
   try {
     const user = req.body;
     const con = await client.connect();
-    const data = await con.db(dbName).collection('users').insertOne(user); // prideda vieną objektą
+    const data = await con.db(dbName).collection('users').insertOne(user);
     await con.close();
     res.send(data);
   } catch (error) {
@@ -41,23 +40,11 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// app.get('/questions', async (req, res) => {
-//   try {
-//     const con = await client.connect(); // prisijungiame prie duomenų bazės
-//     const data = await con.db(dbName).collection('questions').find().toArray();
-//     await con.close(); // uždarom prisijungimą prie duomenų bazės
-//     res.send(data);
-//   } catch (error) {
-//     // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
-//     res.status(500).send(error);
-//   }
-// });
-
 app.post('/questions', async (req, res) => {
   try {
     const question = req.body;
     question.user_id = new ObjectId(question.user_id);
-    question.createdAt = new Date(); // Add the createdAt field with the current date
+    question.createdAt = new Date();
     const con = await client.connect();
     const data = await con
       .db(dbName)
@@ -72,12 +59,11 @@ app.post('/questions', async (req, res) => {
 
 app.get('/answers', async (req, res) => {
   try {
-    const con = await client.connect(); // prisijungiame prie duomenų bazės
-    const data = await con.db(dbName).collection('answers').find().toArray(); // išsitraukiame duomenis iš duomenų bazęs
-    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    const con = await client.connect();
+    const data = await con.db(dbName).collection('answers').find().toArray();
+    await con.close();
     res.send(data);
   } catch (error) {
-    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
     res.status(500).send(error);
   }
 });
@@ -95,38 +81,6 @@ app.post('/answers', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-// app.get('/questions', async (req, res) => {
-//   try {
-//     const con = await client.connect();
-//     const data = await con
-//       .db(dbName)
-//       .collection('questions')
-//       .aggregate([
-//         {
-//           $lookup: {
-//             from: 'answers',
-//             let: { questionId: '$_id' },
-//             pipeline: [
-//               {
-//                 $match: {
-//                   $expr: {
-//                     $eq: ['$question_id', '$$questionId'],
-//                   },
-//                 },
-//               },
-//             ],
-//             as: 'answers',
-//           },
-//         },
-//       ])
-//       .toArray();
-//     await con.close();
-//     res.send(data);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 
 app.get('/questions', async (req, res) => {
   try {
@@ -196,7 +150,6 @@ app.get('/questions', async (req, res) => {
       .toArray();
     await con.close();
 
-    // Apply sorting manually when filter is not "showAll"
     if ((filter === 'withAnswers' || filter === 'withoutAnswers') && sort) {
       data.sort((a, b) => {
         if (sort === 'asc') {
@@ -215,7 +168,7 @@ app.get('/questions', async (req, res) => {
 app.get('/questionswithAnswers/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const con = await client.connect(); // prisijungiame prie duomenų bazės
+    const con = await client.connect();
     const data = await con
       .db(dbName)
       .collection('questions')
@@ -243,8 +196,8 @@ app.get('/questionswithAnswers/:id', async (req, res) => {
           },
         },
       ])
-      .toArray(); // išsitraukiame duomenis iš duomenų bazęs
-    await con.close(); // uždarom prisijungimą prie duomenų bazės
+      .toArray();
+    await con.close();
     res.send(data);
   } catch (error) {
     console.error(error);
@@ -297,7 +250,7 @@ app.get('/questions/:id', async (req, res) => {
     const data = await con
       .db(dbName)
       .collection('questions')
-      .findOne(new ObjectId(id)); // Retrieve the question using its ID
+      .findOne(new ObjectId(id));
     await con.close();
     res.send(data);
   } catch (error) {
@@ -310,7 +263,7 @@ app.put('/questions/:id', async (req, res) => {
     const { id } = req.params;
     const updatedQuestion = req.body;
     updatedQuestion.user_id = new ObjectId(updatedQuestion.user_id);
-    updatedQuestion.updatedAt = new Date(); // Add the updatedAt field with the current date
+    updatedQuestion.updatedAt = new Date();
     const con = await client.connect();
     const data = await con
       .db(dbName)
@@ -323,37 +276,6 @@ app.put('/questions/:id', async (req, res) => {
   }
 });
 
-// can be used for guestions/:id/answers
-// app.get('/questions/:id/users', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const con = await client.connect();
-//     const question = await con
-//       .db(dbName)
-//       .collection('questions')
-//       .findOne({ _id: new ObjectId(id) });
-
-//     if (!question) {
-//       res.status(404).send('Question not found');
-//       return;
-//     }
-
-//     const data = await con
-//       .db(dbName)
-//       .collection('users')
-//       .aggregate([
-//         {
-//           $match: { _id: new ObjectId(question.user_id) },
-//         },
-//       ])
-//       .toArray();
-
-//     await con.close();
-//     res.send(data);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 app.delete('/answers/:id', async (req, res) => {
   try {
     const { id } = req.params;
