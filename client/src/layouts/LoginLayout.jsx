@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import PropTypes from "prop-types";
 import Topbar from "../components/TopBar/TopBar";
 
 const LoginLayout = ({ children }) => {
@@ -8,6 +9,10 @@ const LoginLayout = ({ children }) => {
       <div className="login-container">{children}</div>
     </div>
   );
+};
+
+LoginLayout.propTypes = {
+  children: PropTypes.node,
 };
 
 export default LoginLayout;
