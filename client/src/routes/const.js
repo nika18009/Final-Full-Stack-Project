@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 import LoginLayout from "../layouts/LoginLayout";
-import Login from "../pages/Login/Login";
+import Login from "../pages/Login/login";
 import Main from "../pages/Main/Main";
 import Register from "../pages/Register/Register";
 import NewQuestion from "../pages/NewQuestion/NewQuestion";

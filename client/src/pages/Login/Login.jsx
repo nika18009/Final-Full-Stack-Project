@@ -14,13 +14,14 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { email, password };
-    handleLogin(user, setError);
-
-    const path = generatePath(MAIN_ROUTE);
-    navigate(path);
+    const loginSuccessful = await handleLogin(user, setError);
+    if (loginSuccessful) {
+      const path = generatePath(MAIN_ROUTE);
+      navigate(path);
+    }
   };
 
   return (
