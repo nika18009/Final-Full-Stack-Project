@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContex";
-import { Link, generatePath } from "react-router-dom";
 import { getQuestionAnswers } from "../../api/answers";
 import NewAnswerActions from "./AnswerActions";
 import EditAnswer from "../EditQuestion/EditAnswer";
@@ -17,7 +17,6 @@ const QuestionAnswers = ({ id }) => {
   const [clickedDislikes, setClickedDislikes] = useState([]);
 
   useEffect(() => {
-    console.log("Fetching question answers for ID:", id);
     getQuestionAnswers(id)
       .then((response) => {
         setQuestion(response);
@@ -38,9 +37,9 @@ const QuestionAnswers = ({ id }) => {
 
   const handleEditAnswer = (answerId) => {
     if (editingAnswerId === answerId) {
-      setEditingAnswerId(null); // If the same answer is clicked again, reset the editingAnswerId
+      setEditingAnswerId(null);
     } else {
-      setEditingAnswerId(answerId); // Set the editingAnswerId to the clicked answerId
+      setEditingAnswerId(answerId);
     }
   };
 
@@ -68,12 +67,11 @@ const QuestionAnswers = ({ id }) => {
 
   return (
     <div>
-      {/* <h2>Answers ({question.length > 0 && question[0].answers.length})</h2> */}
       {question.length > 0 &&
         question[0].answers.map((answer, index) => (
           <div key={answer._id}>
             <div className="singleAnswerCard">
-              <div>
+              <div className="answerSection">
                 <p>{answer.description}</p>
                 {isLoggedIn && (
                   <NewAnswerActions
@@ -115,4 +113,7 @@ const QuestionAnswers = ({ id }) => {
   );
 };
 
+QuestionAnswers.propTypes = {
+  id: PropTypes.string,
+};
 export default QuestionAnswers;

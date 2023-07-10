@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { useNavigate, generatePath } from "react-router-dom";
-// import { ObjectId } from "mongodb";
 import Button from "../../components/Button/Button";
 import FormInput from "../../components/FormItem/FormItem";
 import { UserContext } from "../../contexts/UserContex";
@@ -15,7 +15,7 @@ const NewQuestion = ({ question }) => {
 
   const isEditing = !!question;
   const navigate = useNavigate();
-  //   const { ObjectId } = require("mongodb");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const submittingQuestion = {
@@ -24,14 +24,11 @@ const NewQuestion = ({ question }) => {
       description,
       createdAt: new Date(),
     };
-    console.log("Submitting Question:", submittingQuestion);
 
     const saveQuestion = isEditing ? updateQuestion : createQuestion;
     const savingQuestion = isEditing
       ? { _id: question._id, ...submittingQuestion }
       : submittingQuestion;
-
-    console.log("Saving Question:", savingQuestion);
 
     saveQuestion(savingQuestion)
       .then(() => {
@@ -68,4 +65,12 @@ const NewQuestion = ({ question }) => {
   );
 };
 
+NewQuestion.propTypes = {
+  question: PropTypes.shape({
+    _id: PropTypes.string,
+    user_id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+};
 export default NewQuestion;

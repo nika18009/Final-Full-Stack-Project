@@ -1,13 +1,12 @@
 import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 import LoginLayout from "../layouts/LoginLayout";
-import Login from "../pages/Login/login";
+import Login from "../pages/Login/Login";
 import Main from "../pages/Main/Main";
 import Register from "../pages/Register/Register";
 import NewQuestion from "../pages/NewQuestion/NewQuestion";
 import Question from "../pages/Question/Question";
 import EditQuestion from "../pages/EditQuestion/EditQuestion";
 import NewAnswer from "../pages/Answer/Answer";
-import EditAnswer from "../pages/EditQuestion/EditAnswer";
 
 export const REGISTER_ROUTE = "/register";
 export const LOGIN_ROUTE = "/login";
@@ -17,11 +16,7 @@ export const QUESTION_ROUTE = `/question/:id`;
 export const EDIT_QUESTION_ROUTE = `${QUESTION_ROUTE}/edit`;
 export const QUESTION_ANSWER_ROUTE = `${QUESTION_ROUTE}/answer`;
 export const EDIT_ANSWER_ROUTE = `${QUESTION_ANSWER_ROUTE}/edit`;
-// export const CONTACTS_ROUTE = "/contacts";
-// export const PROFILE_ROUTE = "/profile";
-// export const PROJECTS_ROUTE = "/projects";
 
-// kol neesu prisijnugęs
 export const loginRoutes = {
   Layout: LoginLayout,
   routes: [
@@ -52,7 +47,6 @@ export const loginRoutes = {
   ],
 };
 
-// kai esu prisijungęs
 export const authenticatedRoutes = {
   Layout: AuthenticatedLayout,
   routes: [

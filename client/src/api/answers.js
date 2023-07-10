@@ -13,14 +13,8 @@ export const getQuestionAnswer = async (id) => {
   return response.data;
 };
 
-// export const getQuestion = async (id) => {
-//   const response = await axios.get(`http://localhost:3000/questions/${id}`);
-//   return response.data;
-// };
-
 export const createAnswer = async (answer) => {
   const response = await axios.post("http://localhost:3000/answers", answer);
-
   return response.data;
 };
 

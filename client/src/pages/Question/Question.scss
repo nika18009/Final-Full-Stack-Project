@@ -88,3 +88,10 @@
 .white {
   background-color: white;
 }
+
+.answerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1em;
+}

@@ -1,11 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate, generatePath } from "react-router-dom";
-// import { ObjectId } from "mongodb";
+import PropTypes from "prop-types";
 import Button from "../../components/Button/Button";
 import FormInput from "../../components/FormItem/FormItem";
 import { UserContext } from "../../contexts/UserContex";
 import { createAnswer, updateAnswer } from "../../api/answers";
-import { MAIN_ROUTE, QUESTION_ROUTE } from "../../routes/const";
+
 import "../NewQuestion/NewQuestion.scss";
 
 const NewAnswer = ({ question, answer }) => {
@@ -13,7 +12,7 @@ const NewAnswer = ({ question, answer }) => {
   const [description, setDescription] = useState("");
 
   const isEditing = !!answer;
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     if (isEditing) {
@@ -25,7 +24,7 @@ const NewAnswer = ({ question, answer }) => {
     e.preventDefault();
     const submittingAnswer = {
       user_id: user._id,
-      question_id: question._id, // Pass question._id directly
+      question_id: question._id,
       description,
       createdAt: new Date(),
     };
@@ -57,6 +56,22 @@ const NewAnswer = ({ question, answer }) => {
       </form>
     </div>
   );
+};
+
+NewAnswer.propTypes = {
+  question: PropTypes.shape({
+    _id: PropTypes.string,
+    user_id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+  answer: PropTypes.shape({
+    _id: PropTypes.string,
+    user_id: PropTypes.string,
+    question_id: PropTypes.string,
+    description: PropTypes.string,
+    createdAt: PropTypes.string,
+  }),
 };
 
 export default NewAnswer;

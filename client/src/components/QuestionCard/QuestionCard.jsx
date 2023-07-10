@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./QuestionCard.scss";
 
 const QuestionCard = ({
@@ -10,7 +11,7 @@ const QuestionCard = ({
   return (
     <div className="question-card">
       <div className="questionMainInformation">
-        <div >
+        <div>
           <h3 className="title">{title}</h3>
           <p className="description">{description}</p>
         </div>
@@ -22,6 +23,14 @@ const QuestionCard = ({
       </div>
     </div>
   );
+};
+
+QuestionCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  answerCount: PropTypes.number,
+  createdDate: PropTypes.string,
+  updatedAt: PropTypes.string,
 };
 
 export default QuestionCard;

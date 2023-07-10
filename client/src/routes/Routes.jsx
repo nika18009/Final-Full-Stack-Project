@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   Routes as RoutesWrapper,
   Route,
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
 } from "react-router-dom";
 import { UserContext } from "../contexts/UserContex";
 import { loginRoutes, authenticatedRoutes } from "./const";

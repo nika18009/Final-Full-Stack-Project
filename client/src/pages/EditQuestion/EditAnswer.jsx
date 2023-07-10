@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { getQuestion } from "../../api/questions";
 import NewAnswer from "../Answer/Answer";
 import Loader from "../../components/Loader/Loader";
 
 const EditAnswer = ({ answer }) => {
-  // const { id } = useParams();
   const [questionId, setQuestionId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(answer.question_id);
     getQuestion(answer.question_id)
       .then((response) => {
         setQuestionId(response);
-        console.log(response);
       })
       .catch((error) => {
         console.error(error);
@@ -34,5 +31,15 @@ const EditAnswer = ({ answer }) => {
   }
 
   return <NewAnswer answer={answer} question={questionId} />;
+};
+
+EditAnswer.propTypes = {
+  answer: PropTypes.shape({
+    _id: PropTypes.string,
+    user_id: PropTypes.string,
+    question_id: PropTypes.string,
+    description: PropTypes.string,
+    createdAt: PropTypes.string,
+  }),
 };
 export default EditAnswer;

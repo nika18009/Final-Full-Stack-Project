@@ -5,3 +5,10 @@ export const checkUserCredentials = (users, checkingUser) => {
         user.password === checkingUser.password
     );
   };
+
+  export const checkRegisterUserCredentials = (users, checkingUser) => {
+    return users.find(
+      (user) =>
+        user.email === checkingUser.email
+    );
+  };

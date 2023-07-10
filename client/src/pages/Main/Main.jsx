@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, generatePath } from "react-router-dom";
 import { getQuestions } from "../../api/questions";
 import { QUESTION_ROUTE, NEW_QUESTION_ROUTE } from "../../routes/const";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContex";
 import Button from "../../components/Button/Button";
 import QuestionSorting from "../../components/QuestionSorting/QuestionSorting";
 import "./Main.scss";

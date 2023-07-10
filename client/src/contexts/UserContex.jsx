@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { LOGIN_ROUTE } from "../routes/const";
-import { checkUserCredentials } from "../utils/user";
+import { checkUserCredentials, checkRegisterUserCredentials } from "../utils/user";
 import { getUsers, createUser } from "../api/users";
 
 const UserContext = createContext({
@@ -42,15 +42,32 @@ const UserProvider = ({ children }) => {
     navigate(LOGIN_ROUTE);
   };
 
-  const handleRegister = (newUser) => {
-    createUser(newUser)
+  const handleRegister = (newUser, setError) => {
+    getUsers()
+      .then((response) => {
+        const existingUser = checkRegisterUserCredentials(response, newUser);
+        if (existingUser) {
+          setError("User with this email already exists");
+        } else {
+          createUser(newUser)
       .then(() => {
         navigate(LOGIN_ROUTE);
+      })
+        }
       })
       .catch((error) => {
         console.error(error);
       });
   };
+  // const handleRegister = (newUser) => {
+  //   createUser(newUser)
+  //     .then(() => {
+  //       navigate(LOGIN_ROUTE);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   // const handleUpdateUser = (updatingUser) => {
   //   updateUser(user.id, updatingUser)

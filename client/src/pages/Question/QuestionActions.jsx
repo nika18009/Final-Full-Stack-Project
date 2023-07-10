@@ -34,7 +34,7 @@ const QuestionActions = ({ id }) => {
 };
 
 QuestionActions.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string,
 };
 
 export default QuestionActions;
