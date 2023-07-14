@@ -12,7 +12,7 @@ import "./Question.scss";
 const QuestionAnswers = ({ id }) => {
   const [question, setQuestion] = useState([]);
   const [editingAnswerId, setEditingAnswerId] = useState(null);
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, userId } = useContext(UserContext);
   const [clickedLikes, setClickedLikes] = useState([]);
   const [clickedDislikes, setClickedDislikes] = useState([]);
 
@@ -73,7 +73,7 @@ const QuestionAnswers = ({ id }) => {
             <div className="singleAnswerCard">
               <div className="answerSection">
                 <p>{answer.description}</p>
-                {isLoggedIn && (
+                {isLoggedIn && userId === answer.user_id && (
                   <NewAnswerActions
                     id={answer._id}
                     onEditAnswer={() => handleEditAnswer(answer._id)}

@@ -43,7 +43,9 @@ const Question = () => {
   return (
     <div>
       <div className="questionCard">
-        {isLoggedIn && <QuestionActions id={question._id} />}
+        {isLoggedIn && (
+          <QuestionActions id={question._id} question={question} />
+        )}
         <div>
           <h1>{question.title}</h1>
           <p>{question.description}</p>

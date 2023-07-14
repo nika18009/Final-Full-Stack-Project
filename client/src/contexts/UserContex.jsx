@@ -11,6 +11,7 @@ import { getUsers, createUser } from "../api/users";
 const UserContext = createContext({
   user: null,
   isLoggedIn: false,
+  userId: null,
   handleLogin: () => null,
   handleLogout: () => null,
   handleRegister: () => null,
@@ -19,6 +20,7 @@ const UserContext = createContext({
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const isLoggedIn = !!user;
+  const userId = user ? user._id : null; 
   const navigate = useNavigate();
 
   const handleLogin = async (user, setError) => {
@@ -42,7 +44,7 @@ const UserProvider = ({ children }) => {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.setItem("user", null);
+    localStorage.removeItem("user");
     navigate(LOGIN_ROUTE);
   };
 
@@ -68,6 +70,7 @@ const UserProvider = ({ children }) => {
       value={{
         user,
         isLoggedIn,
+        userId, 
         handleLogin,
         handleLogout,
         handleRegister,
